@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hidden App Control</title>
+</head>
+<body>
+    <h1>Welcome to the Hidden App Control Panel</h1>
+    <form id="loginForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <br>
+        <button type="submit">Login</button>
+    </form>
+
+    <script>
+        const form = document.getElementById("loginForm");
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            // Backend API URL (Replit)
+            const apiUrl = "https://your-replit-backend.repl.co/login";
+
+            const response = await fetch(apiUrl, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, password }),
+            });
+
+            const data = await response.json();
+            if (data.success) {
+                alert("Login Successful: " + data.message);
+            } else {
+                alert("Login Failed: " + data.message);
+            }
+        });
+    </script>
+</body>
+</html>
